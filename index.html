@@ -9,14 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Reset */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--text); line-height: 1.6; }
-    img { max-width: 100%; display: block; }
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
-
     /* CSS Variables */
     :root {
       --green-dark: #2d6a4f;
@@ -29,8 +21,18 @@
       --text-secondary: #6c757d;
       --font-heading: 'Poppins', sans-serif;
       --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --border: #ddd;
       --radius: 12px;
     }
+
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--text); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
 
     /* Utility */
     .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
@@ -55,6 +57,7 @@
       border: none;
     }
     .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn:focus-visible { outline: 2px solid var(--green-dark); outline-offset: 2px; }
     .btn-primary { background: var(--green-dark); color: var(--white); }
     .btn-outline { background: transparent; border: 2px solid var(--green-dark); color: var(--green-dark); }
 
@@ -77,6 +80,7 @@
     }
     .nav.scrolled .nav-links a { color: var(--text); }
     .nav-links a:hover { color: var(--green-mid); }
+    .nav-links a:focus-visible { outline: 2px solid var(--green-mid); outline-offset: 2px; }
     .hamburger {
       display: none; flex-direction: column; gap: 5px;
       cursor: pointer; background: none; border: none; padding: 4px;
@@ -198,10 +202,10 @@
     .form-group { display: flex; flex-direction: column; gap: 4px; }
     .form-group label { font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; color: var(--text); }
     .form-group input, .form-group textarea {
-      padding: 12px 16px; border: 1px solid #ddd; border-radius: 8px;
+      padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px;
       font-size: 1rem; font-family: inherit; transition: border-color 0.2s;
     }
-    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--green-mid); }
+    .form-group input:focus, .form-group textarea:focus { outline: 2px solid var(--green-mid); outline-offset: 1px; border-color: var(--green-mid); }
     .form-group textarea { resize: vertical; min-height: 120px; }
     .contact-channels { display: flex; flex-direction: column; gap: 20px; justify-content: center; }
     .contact-channel {
@@ -239,13 +243,15 @@
         <li><a href="#benefits">Benefits</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
   </nav>
+
+  <main>
 
   <!-- Hero -->
   <section class="hero">
@@ -362,7 +368,7 @@
   </section>
 
   <!-- Testimonials -->
-  <section class="testimonials section">
+  <section class="testimonials section" id="testimonials">
     <div class="container">
       <h2 class="section-title">What Our Customers Say</h2>
       <div class="testimonials-grid">
@@ -418,11 +424,11 @@
 
         <!-- Contact Channels -->
         <div class="contact-channels">
-          <a href="https://wa.me/1234567890" class="contact-channel" target="_blank" rel="noopener">
+          <a href="https://wa.me/1234567890" class="contact-channel" target="_blank" rel="noopener noreferrer">
             <span class="contact-channel-icon">&#128172;</span>
             <span class="contact-channel-label">Chat on WhatsApp</span>
           </a>
-          <a href="https://t.me/pureair" class="contact-channel" target="_blank" rel="noopener">
+          <a href="https://t.me/pureair" class="contact-channel" target="_blank" rel="noopener noreferrer">
             <span class="contact-channel-icon">&#9992;</span>
             <span class="contact-channel-label">Message on Telegram</span>
           </a>
@@ -439,6 +445,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -468,6 +476,7 @@
     const navLinks = document.getElementById('nav-links');
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', navLinks.classList.contains('open'));
     });
 
     // Close mobile menu on link click
@@ -484,8 +493,8 @@
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
         const message = document.getElementById('message').value;
-        const body = `Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0A%0A${message}`;
-        window.location.href = `mailto:hello@pureair.com?subject=PureAir Inquiry from ${name}&body=${body}`;
+        const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`;
+        window.location.href = `mailto:hello@pureair.com?subject=${encodeURIComponent('PureAir Inquiry from ' + name)}&body=${encodeURIComponent(body)}`;
       }
     });
   </script>
