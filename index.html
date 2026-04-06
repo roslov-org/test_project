@@ -184,9 +184,14 @@
     /* Testimonials */
     .testimonials { background: var(--green-pale); }
     .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .testimonial-card { background: var(--white); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
-    .testimonial-text { font-size: 1rem; color: var(--text); line-height: 1.6; margin-bottom: 20px; font-style: italic; }
+    .testimonial-card { background: var(--white); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+    .testimonial-text { font-size: 1rem; color: var(--text); line-height: 1.6; margin-bottom: 20px; font-style: italic; flex-grow: 1; }
     .testimonial-text::before { content: '\201C'; font-size: 1.5rem; color: var(--green-mid); }
+    .testimonial-footer { display: flex; align-items: center; gap: 14px; }
+    .testimonial-avatar {
+      width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+      border: 3px solid var(--green-light); flex-shrink: 0;
+    }
     .testimonial-author { font-family: var(--font-heading); font-weight: 600; color: var(--green-dark); }
     .testimonial-location { font-size: 0.85rem; color: var(--text-secondary); }
 
@@ -374,20 +379,35 @@
 
         <div class="testimonial-card">
           <p class="testimonial-text">I spent fifteen years commuting through central London, never thinking twice about what I was inhaling. My first breath of PureAir stopped me cold. It was like my lungs woke up from a coma. The clarity, the energy, the feeling of my chest expanding fully for the first time in years — I genuinely teared up. I keep a canister at my desk, one by my bed, and one in my bag. I will never, ever go back to breathing unfiltered city air. This is not a luxury. This is survival.</p>
-          <div class="testimonial-author">Sarah M.</div>
-          <div class="testimonial-location">London, UK</div>
+          <div class="testimonial-footer">
+            <img class="testimonial-avatar" src="https://images.pexels.com/photos/31715570/pexels-photo-31715570.jpeg?auto=compress&cs=tinysrgb&w=200" alt="Sarah M." loading="lazy">
+            <div>
+              <div class="testimonial-author">Sarah M.</div>
+              <div class="testimonial-location">London, UK</div>
+            </div>
+          </div>
         </div>
 
         <div class="testimonial-card">
           <p class="testimonial-text">After years of waking up congested in Manhattan, I had accepted it as normal. My doctor told me my lung capacity was declining. A colleague handed me PureAir and said, "Just try it." Within one week of daily use, I was sleeping deeper, thinking sharper, and my morning congestion vanished entirely. My doctor was stunned at my next check-up. I have recommended PureAir to every single person I know. If you care about your health at all, this is the most important decision you will make this year.</p>
-          <div class="testimonial-author">James K.</div>
-          <div class="testimonial-location">New York, USA</div>
+          <div class="testimonial-footer">
+            <img class="testimonial-avatar" src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=200" alt="James K." loading="lazy">
+            <div>
+              <div class="testimonial-author">James K.</div>
+              <div class="testimonial-location">New York, USA</div>
+            </div>
+          </div>
         </div>
 
         <div class="testimonial-card">
           <p class="testimonial-text">I am a meditation practitioner and breathwork instructor in Tokyo, and I thought I understood air. I was wrong. The first time I used PureAir during my morning session, the depth of my breathing transformed completely. It felt like meditating on a Himalayan summit — an electric, alive quality that city air simply cannot replicate. My clients noticed the difference immediately. My focus sharpened. My energy doubled. PureAir did not just improve my practice — it revolutionised my entire relationship with breathing.</p>
-          <div class="testimonial-author">Yuki T.</div>
-          <div class="testimonial-location">Tokyo, Japan</div>
+          <div class="testimonial-footer">
+            <img class="testimonial-avatar" src="https://images.pexels.com/photos/3764486/pexels-photo-3764486.jpeg?auto=compress&cs=tinysrgb&w=200" alt="Yuki T." loading="lazy">
+            <div>
+              <div class="testimonial-author">Yuki T.</div>
+              <div class="testimonial-location">Tokyo, Japan</div>
+            </div>
+          </div>
         </div>
 
       </div>
