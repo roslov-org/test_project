@@ -105,14 +105,10 @@
     /* Hero */
     .hero {
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 40%, #40916c 100%);
+      text-align: center;
+      background: linear-gradient(rgba(27,67,50,0.55), rgba(45,106,79,0.6)),
+        url('https://images.pexels.com/photos/34358244/pexels-photo-34358244.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover no-repeat;
       position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(149,213,178,0.3) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(82,183,136,0.2) 0%, transparent 50%);
     }
     .hero-content { position: relative; z-index: 1; max-width: 700px; padding: 0 20px; }
     .hero h1 {
@@ -133,11 +129,11 @@
     .stat-value { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--green-dark); }
     .stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
     .about-image {
-      background: linear-gradient(135deg, var(--green-pale) 0%, var(--green-light) 100%);
-      border-radius: var(--radius); height: 350px; display: flex;
-      align-items: center; justify-content: center;
+      border-radius: var(--radius); height: 350px; overflow: hidden;
     }
-    .about-image-icon { font-size: 6rem; }
+    .about-image img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
 
     @media (max-width: 768px) {
       .about-grid { grid-template-columns: 1fr; }
@@ -158,7 +154,10 @@
       background: var(--green-mid); color: var(--white); font-family: var(--font-heading);
       font-size: 0.8rem; font-weight: 600; padding: 4px 16px; border-radius: 20px;
     }
-    .product-icon { font-size: 3rem; margin-bottom: 16px; }
+    .product-image {
+      width: 100%; height: 180px; object-fit: cover;
+      border-radius: 8px; margin-bottom: 20px;
+    }
     .product-name { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--green-dark); margin-bottom: 4px; }
     .product-volume { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 16px; }
     .product-price { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--text); margin-bottom: 16px; }
@@ -286,7 +285,7 @@
           </div>
         </div>
         <div class="about-image">
-          <span class="about-image-icon">&#127956;</span>
+          <img src="https://images.pexels.com/photos/2739666/pexels-photo-2739666.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Aerial view of a pristine green forest canopy" loading="lazy">
         </div>
       </div>
     </div>
@@ -300,7 +299,7 @@
 
         <!-- Starter -->
         <div class="product-card">
-          <div class="product-icon">&#129523;</div>
+          <img class="product-image" src="https://images.pexels.com/photos/18714092/pexels-photo-18714092.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mountain landscape — source of pure mountain air" loading="lazy">
           <div class="product-name">Starter</div>
           <div class="product-volume">1 Litre</div>
           <div class="product-price">$29</div>
@@ -311,7 +310,7 @@
         <!-- Classic (featured) -->
         <div class="product-card featured">
           <div class="product-badge">Most Popular</div>
-          <div class="product-icon">&#127748;</div>
+          <img class="product-image" src="https://images.pexels.com/photos/31612087/pexels-photo-31612087.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Misty forest canopy — source of fresh forest air" loading="lazy">
           <div class="product-name">Classic</div>
           <div class="product-volume">5 Litres</div>
           <div class="product-price">$99</div>
@@ -321,7 +320,7 @@
 
         <!-- Bulk -->
         <div class="product-card">
-          <div class="product-icon">&#9968;</div>
+          <img class="product-image" src="https://images.pexels.com/photos/3533909/pexels-photo-3533909.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Ocean cliff — source of fresh coastal air" loading="lazy">
           <div class="product-name">Bulk</div>
           <div class="product-volume">10 Litres</div>
           <div class="product-price">$149</div>
