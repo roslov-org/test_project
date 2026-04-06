@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PureAir — Premium Pure Air</title>
+  <meta name="description" content="Premium pure air sourced from the world's cleanest environments. Choose your volume and breathe the difference.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--text); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* CSS Variables */
+    :root {
+      --green-dark: #2d6a4f;
+      --green-mid: #52b788;
+      --green-light: #95d5b2;
+      --green-pale: #d8f3dc;
+      --beige: #fefae0;
+      --white: #ffffff;
+      --text: #1b1b1b;
+      --text-secondary: #6c757d;
+      --font-heading: 'Poppins', sans-serif;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --radius: 12px;
+    }
+
+    /* Utility */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 80px 0; }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--green-dark);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-primary { background: var(--green-dark); color: var(--white); }
+    .btn-outline { background: transparent; border: 2px solid var(--green-dark); color: var(--green-dark); }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 0; transition: background 0.3s, box-shadow 0.3s;
+    }
+    .nav.scrolled { background: var(--white); box-shadow: var(--shadow); }
+    .nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo {
+      font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem;
+      color: var(--white); transition: color 0.3s;
+    }
+    .nav.scrolled .nav-logo { color: var(--green-dark); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-family: var(--font-heading); font-weight: 600; font-size: 0.95rem;
+      color: var(--white); transition: color 0.3s;
+    }
+    .nav.scrolled .nav-links a { color: var(--text); }
+    .nav-links a:hover { color: var(--green-mid); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span {
+      width: 25px; height: 3px; background: var(--white);
+      border-radius: 2px; transition: background 0.3s;
+    }
+    .nav.scrolled .hamburger span { background: var(--green-dark); }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--white); flex-direction: column; padding: 20px;
+        gap: 16px; box-shadow: var(--shadow);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { color: var(--text) !important; }
+      .hamburger { display: flex; }
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 40%, #40916c 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(149,213,178,0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(82,183,136,0.2) 0%, transparent 50%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; padding: 0 20px; }
+    .hero h1 {
+      font-family: var(--font-heading); font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700; color: var(--white); margin-bottom: 16px; line-height: 1.15;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--green-pale);
+      margin-bottom: 32px; line-height: 1.6;
+    }
+
+    /* About */
+    .about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .about-text p { color: var(--text-secondary); margin-bottom: 24px; font-size: 1.05rem; }
+    .about-stats { display: flex; gap: 24px; margin-top: 24px; }
+    .stat { text-align: center; padding: 16px; }
+    .stat-value { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--green-dark); }
+    .stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+    .about-image {
+      background: linear-gradient(135deg, var(--green-pale) 0%, var(--green-light) 100%);
+      border-radius: var(--radius); height: 350px; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .about-image-icon { font-size: 6rem; }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-stats { flex-wrap: wrap; }
+    }
+
+    /* Products */
+    .products { background: var(--beige); }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .product-card {
+      background: var(--white); border-radius: var(--radius); padding: 40px 28px;
+      text-align: center; box-shadow: var(--shadow); position: relative; transition: transform 0.2s;
+    }
+    .product-card:hover { transform: translateY(-4px); }
+    .product-card.featured { border: 2px solid var(--green-mid); }
+    .product-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--green-mid); color: var(--white); font-family: var(--font-heading);
+      font-size: 0.8rem; font-weight: 600; padding: 4px 16px; border-radius: 20px;
+    }
+    .product-icon { font-size: 3rem; margin-bottom: 16px; }
+    .product-name { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--green-dark); margin-bottom: 4px; }
+    .product-volume { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 16px; }
+    .product-price { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .product-desc { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.5; }
+
+    @media (max-width: 768px) {
+      .products-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    }
+
+    /* Benefits */
+    .benefits { background: var(--white); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .benefit-card { text-align: center; padding: 32px 20px; }
+    .benefit-icon {
+      width: 64px; height: 64px; margin: 0 auto 16px; background: var(--green-pale);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+    }
+    .benefit-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--green-dark); margin-bottom: 8px; }
+    .benefit-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+
+    @media (max-width: 768px) { .benefits-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .benefits-grid { grid-template-columns: 1fr; } }
+
+    /* Testimonials */
+    .testimonials { background: var(--green-pale); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .testimonial-card { background: var(--white); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
+    .testimonial-text { font-size: 1rem; color: var(--text); line-height: 1.6; margin-bottom: 20px; font-style: italic; }
+    .testimonial-text::before { content: '\201C'; font-size: 1.5rem; color: var(--green-mid); }
+    .testimonial-author { font-family: var(--font-heading); font-weight: 600; color: var(--green-dark); }
+    .testimonial-location { font-size: 0.85rem; color: var(--text-secondary); }
+
+    @media (max-width: 768px) {
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+    }
+
+    /* Contact */
+    .contact { background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group label { font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; color: var(--text); }
+    .form-group input, .form-group textarea {
+      padding: 12px 16px; border: 1px solid #ddd; border-radius: 8px;
+      font-size: 1rem; font-family: inherit; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--green-mid); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .contact-channels { display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+    .contact-channel {
+      display: flex; align-items: center; gap: 16px; padding: 16px 20px;
+      border-radius: var(--radius); background: var(--green-pale);
+      font-family: var(--font-heading); font-weight: 600; color: var(--green-dark); transition: transform 0.2s;
+    }
+    .contact-channel:hover { transform: translateX(4px); }
+    .contact-channel-icon { font-size: 1.5rem; }
+    .contact-channel-label { font-size: 1rem; }
+
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    /* Footer */
+    .footer { background: var(--green-dark); color: var(--green-pale); padding: 40px 0; }
+    .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-brand { font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; color: var(--white); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 0.9rem; color: var(--green-pale); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { width: 100%; text-align: center; font-size: 0.85rem; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); }
+
+    @media (max-width: 768px) { .footer-content { flex-direction: column; text-align: center; } }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="#" class="nav-logo">PureAir</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#benefits">Benefits</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Breathe the Difference</h1>
+      <p>Premium pure air sourced from the world's cleanest mountain environments. Experience the freshness nature intended — sealed and delivered to your door.</p>
+      <a href="#products" class="btn btn-primary">Explore Our Air</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about section" id="about">
+    <div class="container">
+      <h2 class="section-title">Pure Air, Pure Life</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>We travel to the most pristine, remote mountain peaks on Earth to capture air that's untouched by pollution, industry, or urban sprawl. Every breath is carefully sourced, tested, and sealed to preserve its natural purity from mountain to you.</p>
+          <p>Our advanced collection technology ensures that only the cleanest, freshest air makes it into each canister. With rigorous lab testing and eco-conscious packaging, PureAir sets the gold standard for premium air products worldwide.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <div class="stat-value">99.99%</div>
+              <div class="stat-label">Pure</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">3,000m+</div>
+              <div class="stat-label">Altitude</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">24h</div>
+              <div class="stat-label">Sealed Fresh</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-image">
+          <span class="about-image-icon">&#127956;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products section" id="products">
+    <div class="container">
+      <h2 class="section-title">Choose Your Volume</h2>
+      <div class="products-grid">
+
+        <!-- Starter -->
+        <div class="product-card">
+          <div class="product-icon">&#129523;</div>
+          <div class="product-name">Starter</div>
+          <div class="product-volume">1 Litre</div>
+          <div class="product-price">$29</div>
+          <div class="product-desc">Perfect for first-time breathers. Experience the crispness of high-altitude air in a compact, portable canister.</div>
+          <a href="#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+
+        <!-- Classic (featured) -->
+        <div class="product-card featured">
+          <div class="product-badge">Most Popular</div>
+          <div class="product-icon">&#127748;</div>
+          <div class="product-name">Classic</div>
+          <div class="product-volume">5 Litres</div>
+          <div class="product-price">$99</div>
+          <div class="product-desc">Our best-selling volume. Ideal for daily use, offering a full week of pure mountain air to elevate your wellness routine.</div>
+          <a href="#contact" class="btn btn-primary">Contact Us</a>
+        </div>
+
+        <!-- Bulk -->
+        <div class="product-card">
+          <div class="product-icon">&#9968;</div>
+          <div class="product-name">Bulk</div>
+          <div class="product-volume">10 Litres</div>
+          <div class="product-price">$149</div>
+          <div class="product-desc">The ultimate supply for devoted enthusiasts. Share with family or enjoy extended sessions of pure, refreshing mountain air.</div>
+          <a href="#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="benefits section" id="benefits">
+    <div class="container">
+      <h2 class="section-title">Why Choose PureAir</h2>
+      <div class="benefits-grid">
+
+        <div class="benefit-card">
+          <div class="benefit-icon">&#127807;</div>
+          <div class="benefit-name">100% Natural</div>
+          <div class="benefit-desc">Directly sourced from pristine mountain peaks — no additives, no preservatives, just pure nature.</div>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">&#128300;</div>
+          <div class="benefit-name">Lab Tested</div>
+          <div class="benefit-desc">Every batch is rigorously tested in certified laboratories to guarantee purity and safety standards.</div>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">&#9854;</div>
+          <div class="benefit-name">Eco Packaging</div>
+          <div class="benefit-desc">Our canisters are made from 100% recyclable materials, because we care as much about the planet as you do.</div>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">&#128666;</div>
+          <div class="benefit-name">Fast Shipping</div>
+          <div class="benefit-desc">Delivered to your door within 2–3 business days worldwide, sealed fresh and ready to breathe.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials section">
+    <div class="container">
+      <h2 class="section-title">What Our Customers Say</h2>
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <p class="testimonial-text">I was skeptical at first, but the difference is truly remarkable. After a long day in the city, breathing PureAir feels like stepping onto a mountaintop. Absolutely worth every penny.</p>
+          <div class="testimonial-author">Sarah M.</div>
+          <div class="testimonial-location">London, UK</div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-text">As someone with sensitive airways, finding PureAir was a game changer. The quality is exceptional and the eco-friendly packaging shows they actually care about the environment too.</p>
+          <div class="testimonial-author">James K.</div>
+          <div class="testimonial-location">New York, USA</div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-text">I use PureAir during my morning meditation and it has transformed the experience entirely. The freshness is unmatched — you can genuinely feel the mountain altitude in every breath.</p>
+          <div class="testimonial-author">Yuki T.</div>
+          <div class="testimonial-location">Tokyo, Japan</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="contact-grid">
+
+        <!-- Form -->
+        <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your order or any questions..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+
+        <!-- Contact Channels -->
+        <div class="contact-channels">
+          <a href="https://wa.me/1234567890" class="contact-channel" target="_blank" rel="noopener">
+            <span class="contact-channel-icon">&#128172;</span>
+            <span class="contact-channel-label">Chat on WhatsApp</span>
+          </a>
+          <a href="https://t.me/pureair" class="contact-channel" target="_blank" rel="noopener">
+            <span class="contact-channel-icon">&#9992;</span>
+            <span class="contact-channel-label">Message on Telegram</span>
+          </a>
+          <a href="tel:+1234567890" class="contact-channel">
+            <span class="contact-channel-icon">&#128222;</span>
+            <span class="contact-channel-label">Call Us: +1 234 567 890</span>
+          </a>
+          <a href="mailto:hello@pureair.com" class="contact-channel">
+            <span class="contact-channel-icon">&#9993;</span>
+            <span class="contact-channel-label">hello@pureair.com</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">PureAir</div>
+        <nav class="footer-links">
+          <a href="#about">About</a>
+          <a href="#products">Products</a>
+          <a href="#benefits">Benefits</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="footer-copy">&copy; 2026 PureAir. All rights reserved. Breathe pure, live better.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Form submit feedback
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', function(e) {
+      if (this.action.includes('YOUR_FORM_ID')) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const message = document.getElementById('message').value;
+        const body = `Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0A%0A${message}`;
+        window.location.href = `mailto:hello@pureair.com?subject=PureAir Inquiry from ${name}&body=${body}`;
+      }
+    });
+  </script>
+
+</body>
+</html>
