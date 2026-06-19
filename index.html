@@ -13,6 +13,13 @@
     src="https://public.lessly.dev/3bbb2c78-81e5-40d2-a41d-1db6a1ca646c/consent/banner.js"
   ></script>
 
+  <!-- Lessly Waitlist widget — renders the signup form into [data-lessly-waitlist] -->
+  <script
+    data-product-id="3bbb2c78-81e5-40d2-a41d-1db6a1ca646c"
+    src="https://public.lessly.dev/3bbb2c78-81e5-40d2-a41d-1db6a1ca646c/waitlist/widget.js"
+    async
+  ></script>
+
   <!-- Demo trackers (fake IDs, no real tracking)
        — intercepted by consent banner.js until visitor gives consent. -->
 
@@ -440,6 +447,19 @@
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- Waitlist -->
+  <section class="section" id="waitlist" style="background: var(--green-dark);">
+    <div class="container" style="text-align: center; max-width: 640px;">
+      <h2 class="section-title" style="color: var(--white);">Join the Early-Access Waitlist</h2>
+      <p style="color: var(--green-pale); margin-bottom: 32px; font-size: 1.1rem;">
+        Pristine mountain air is sealed in strictly limited batches. Leave your email to claim your place in line —
+        we'll invite you the moment the next batch is ready.
+      </p>
+      <!-- Lessly Waitlist form mounts into this element -->
+      <div data-lessly-waitlist style="display: inline-block; text-align: left; background: var(--white); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow);"></div>
     </div>
   </section>
 

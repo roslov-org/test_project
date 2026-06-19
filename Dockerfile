@@ -1,5 +1,6 @@
-# Static landing — served by nginx on the Lessly container port (8080).
-FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/index.html
-RUN printf 'server {\n    listen 8080;\n    listen [::]:8080;\n    server_name _;\n    root /usr/share/nginx/html;\n    index index.html;\n}\n' > /etc/nginx/conf.d/default.conf
+# Small Node.js app serving the landing (/) and the privacy page (/privacy) on :8080.
+FROM node:22-alpine
+WORKDIR /app
+COPY . .
 EXPOSE 8080
+CMD ["node", "server.js"]
