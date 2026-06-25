@@ -10,6 +10,9 @@ const PAGES = {
   '/': 'index.html',
   '/privacy': 'privacy.html',
   '/privacy.html': 'privacy.html',
+  // The waitlist invite email links here as `/signup#token=<rawToken>` (the
+  // `/signup` path is fixed by the waitlist extension). Serve the same form.
+  '/signup': 'register.html',
   '/register': 'register.html',
   '/account': 'account.html',
 };

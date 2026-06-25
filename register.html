@@ -62,6 +62,8 @@
       <div class="brand">PureAir</div>
       <h1>Create your account</h1>
       <p class="sub">Join PureAir and start breathing better today.</p>
+      <p class="msg" id="msg" role="status"
+         style="display:none; font-size:0.9rem; text-align:center; margin-bottom:18px;"></p>
 
       <form action="/register" method="POST">
         <div class="form-group">
@@ -80,5 +82,72 @@
   </main>
 
   <footer class="footer">&copy; 2026 PureAir (demo). Demonstration registration form.</footer>
+
+  <script>
+    // Public edge of the Lessly waitlist extension for product "First".
+    // URL shape: <PUBLIC_EDGE_BASE_URL>/<productId>/waitlist/<route> (CORS: *).
+    var WAITLIST_REGISTER_URL =
+      'https://public.lessly.dev/3bbb2c78-81e5-40d2-a41d-1db6a1ca646c/waitlist/register';
+
+    // The invite email lands here as /signup#token=<rawToken>. The token lives
+    // in the URL fragment, so only client-side JS can read it — it never reaches
+    // the server. We must consume it against the waitlist (marking the lead as
+    // "registered") BEFORE creating the local PureAir account.
+    function inviteToken() {
+      var frag = (location.hash || '').replace(/^#/, '');
+      return new URLSearchParams(frag).get('token');
+    }
+
+    var token = inviteToken();
+    var form = document.querySelector('form');
+    var msg = document.getElementById('msg');
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    function showMsg(text, isError) {
+      msg.textContent = text;
+      msg.style.color = isError ? '#b00020' : 'var(--green-dark)';
+      msg.style.display = text ? 'block' : 'none';
+    }
+
+    var STATUS_MESSAGES = {
+      email_mismatch: 'This email does not match the address your invitation was sent to. Use the email you joined the waitlist with.',
+      expired: 'Your invitation has expired — please request a new one.',
+      not_found: 'We could not find your invitation. Open the link from your email again.',
+    };
+
+    // Visiting /signup with an invite → show context. Without a token the page
+    // is a plain demo signup and the native POST to /register is left untouched.
+    if (token) showMsg('Completing your waitlist invitation — confirm your email below.', false);
+
+    form.addEventListener('submit', async function (e) {
+      if (!token) return; // no invite → ordinary signup, native submit proceeds
+
+      e.preventDefault();
+      var email = form.email.value.trim();
+      submitBtn.disabled = true;
+      showMsg('Verifying your invitation…', false);
+
+      try {
+        var res = await fetch(WAITLIST_REGISTER_URL, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ registrations: [{ token: token, email: email }] }),
+        });
+        var data = await res.json();
+        var status = data && data.results && data.results[0] && data.results[0].status;
+
+        if (status === 'registered' || status === 'already_consumed') {
+          // Invite consumed in the waitlist → create the local account
+          // (native POST does not re-trigger this handler, so no recursion).
+          form.submit();
+          return;
+        }
+        showMsg(STATUS_MESSAGES[status] || ('Registration failed (' + status + ').'), true);
+      } catch (err) {
+        showMsg('Could not reach the waitlist service. Please try again.', true);
+      }
+      submitBtn.disabled = false;
+    });
+  </script>
 </body>
 </html>
