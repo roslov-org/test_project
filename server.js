@@ -72,9 +72,9 @@ async function saveRegistration(email, password) {
 const server = http.createServer((req, res) => {
   const url = (req.url || '/').split('?')[0];
 
-  // Healthcheck — the platform probes an HTTP path and expects 200.
-  // Both paths answer so it works whether the probe is set to /health or /healthz.
-  if (url === '/healthz' || url === '/health') {
+  // Healthcheck — the platform probes HTTP paths and expects 200.
+  // Answer all of them: readiness probe is set to /healthz, liveness to /livez.
+  if (url === '/healthz' || url === '/health' || url === '/livez') {
     res.writeHead(200, { 'content-type': 'application/json' });
     return res.end('{"status":"ok"}');
   }
