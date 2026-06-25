@@ -4,6 +4,13 @@
   "private": true,
   "description": "PureAir demo landing + privacy policy (Lessly consent + waitlist)",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "engines": { "node": ">=20" }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "^8.22.0"
+  }
 }
