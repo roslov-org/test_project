@@ -1,0 +1,1 @@
+{"name":"sourcemap-e2e-fixture","private":true,"scripts":{"build":"mkdir -p dist && cp -r site/. dist/"}}
